@@ -4,7 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'register', pathMatch: 'full' }, // redirection par défaut
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, // redirection par défaut
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   // { path: '**', component: NotFoundComponent } // facultatif : page 404
