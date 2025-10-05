@@ -1,0 +1,119 @@
+<section class="min-h-screen flex items-center justify-center p-4 bg-gray-100">
+  <!-- Conteneur principal -->
+  <div class="relative bg-white flex flex-col md:flex-row rounded-2xl shadow-lg max-w-4xl p-5 items-center w-full h-auto md:h-[85vh] border border-gray-200">
+    
+    <!-- Partie gauche : Formulaire -->
+    <div class="w-full md:w-1/2 px-4 md:px-16">
+      <!-- Logo et titre -->
+      <a routerLink="/" class="flex items-center mb-10 text-2xl font-semibold text-yellow-600">
+        <i class="fas fa-code w-8 h-8 mr-2 text-yellow-600"></i>
+        Codex Club
+      </a>
+      <h2 class="font-semibold text-xl text-gray-900">Bienvenue au club Codex</h2>
+      <p class="text-gray-500 text-sm">Connectez-vous pour accéder aux ressources, événements et projets de notre communauté de développeurs.</p>
+
+      <!-- Messages d'alerte -->
+      <div class="mt-4">
+        <div *ngIf="errorMessage" 
+             class="mb-4 p-3 rounded bg-red-100 text-red-700 border border-red-300 animate-fade-in flex items-center">
+          <i class="fas fa-exclamation-circle mr-2"></i>{{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" 
+             class="mb-4 p-3 rounded bg-green-100 text-green-700 border border-green-300 animate-fade-in flex items-center">
+          <i class="fas fa-check-circle mr-2"></i>{{ successMessage }}
+        </div>
+      </div>
+
+      <!-- Formulaire de connexion -->
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="space-y-5 mt-6">
+       
+        <!-- Email -->
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-700">
+            Email du club <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            [(ngModel)]="user.email"
+            #email="ngModel"
+            email
+            class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2 hover:shadow-lg transition-all duration-200"
+            [class.border-red-500]="email.touched && email.invalid"
+           
+            required
+            [disabled]="isLoading"
+          />
+          <div class="text-red-500 text-sm mt-1" *ngIf="email.touched && email.invalid">
+            <div *ngIf="email.errors?.['required']">L'email est requis.</div>
+            <div *ngIf="email.errors?.['email']">Veuillez saisir un email valide.</div>
+          </div>
+        </div>
+
+        <!-- Mot de passe -->
+        <div>
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-700">
+            Mot de passe <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            [(ngModel)]="user.password"
+            #password="ngModel"
+            minlength="8"
+            class="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2 transition-all duration-200"
+            [class.border-red-500]="password.touched && password.invalid"
+            placeholder="Au moins 8 caractères"
+            required
+            [disabled]="isLoading"
+          />
+          <div class="text-red-500 text-sm mt-1" *ngIf="password.touched && password.invalid">
+            <div *ngIf="password.errors?.['required']">Le mot de passe est requis.</div>
+          </div>
+        </div>
+
+        <!-- Lien mot de passe oublié -->
+        <div class="flex items-center justify-between">
+          <a routerLink="/forgot-password" 
+             class="text-sm font-medium text-yellow-600 hover:underline hover:text-yellow-500 transition-colors">
+            Mot de passe oublié ?
+          </a>
+        </div>
+
+        <!-- Bouton de connexion -->
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid || isLoading"
+          class="w-full text-black bg-yellow-500 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+        >
+          <div *ngIf="isLoading" class="animate-spin rounded-full h-4 w-4 border-b-2 border-black mr-2"></div>
+          {{ isLoading ? 'Connexion en cours...' : 'Se connecter' }}
+        </button>
+
+        <!-- Lien inscription -->
+        <p class="text-sm font-light text-gray-500 mt-4 text-center">
+          Pas encore membre ? 
+          <a routerLink="/register" 
+             class="font-medium text-yellow-600 hover:underline hover:text-yellow-500 transition-colors">
+            Rejoindre le club
+          </a>
+        </p>
+      </form>
+    </div>
+
+    <!-- Partie droite : Image -->
+    <div class="relative hidden md:block md:w-1/2 h-full">
+     <img src="assets/images/image_register.jpg" alt="Développeurs"
+           class="w-full h-full object-cover rounded-r-2xl"
+           onerror="this.src='https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1920&q=80'">
+      <div class="absolute bottom-6 left-6 text-gray-900">
+        <h2 class="text-2xl font-bold">Codex Jenieur Entreprise</h2>
+        <p class="mt-2 text-sm opacity-90">Rejoignez une communauté de développeurs passionnés et innovants.</p>
+      </div>
+      
+    </div>
+
+  </div>
+</section>

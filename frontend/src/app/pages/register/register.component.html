@@ -1,0 +1,131 @@
+<section class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+  <div class="relative bg-white flex flex-col md:flex-row rounded-2xl shadow-2xl max-w-4xl w-full h-auto md:h-[120vh] overflow-hidden border border-gray-200">
+
+    <!-- Partie gauche : Formulaire -->
+    <div class="w-full md:w-1/2 px-6 md:px-16 py-8 flex flex-col justify-center">
+      <a routerLink="/" class="mt-20 flex items-center mb-5 text-2xl font-semibold text-yellow-600">
+        <i class="fas fa-code w-8 h-8 mr-2 text-yellow-600"></i>
+        Codex Jenieur Entreprise
+      </a>
+
+      <h2 class="font-semibold text-xl text-gray-900">Rejoignez notre club de développeurs</h2>
+      <p class="text-gray-500 text-sm">Accédez à des ressources exclusives, événements et opportunités de développement</p>
+
+      <!-- Messages d'erreur/succès -->
+      <div class="mb-4 mt-6">
+        <div *ngIf="errorMessage" class="mb-3 p-3 rounded bg-red-100 text-red-700 border border-red-300 flex items-center">
+          <i class="fas fa-exclamation-circle mr-2"></i>{{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="mb-3 p-3 rounded bg-green-100 text-green-700 border border-green-300 flex items-center">
+          <i class="fas fa-check-circle mr-2"></i>{{ successMessage }}
+        </div>
+      </div>
+
+      <!-- Formulaire -->
+      <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="space-y-4">
+
+        <!-- Prénom -->
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-700">
+            Prénom <span class="text-red-500">*</span>
+          </label>
+          <input type="text" name="firstName" [(ngModel)]="user.prenom" #firstName="ngModel" required
+                 class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600" />
+          <div *ngIf="firstName.invalid && firstName.touched" class="text-red-500 text-sm mt-1">
+            <div *ngIf="firstName.errors?.['required']">Le prénom est obligatoire.</div>
+          </div>
+        </div>
+
+        <!-- Nom -->
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-700">
+            Nom <span class="text-red-500">*</span>
+          </label>
+          <input type="text" name="lastName" [(ngModel)]="user.nom" #lastName="ngModel" required
+                 class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600" />
+          <div *ngIf="lastName.invalid && lastName.touched" class="text-red-500 text-sm mt-1">
+            <div *ngIf="lastName.errors?.['required']">Le nom est obligatoire.</div>
+          </div>
+        </div>
+
+        <!-- Numéro de téléphone -->
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-700">
+            Numéro de téléphone <span class="text-red-500">*</span>
+          </label>
+          <input type="tel" name="phone" [(ngModel)]="user.telephone" #phone="ngModel" required pattern="[0-9]{8,15}" placeholder="Ex: 216xxxxxxxx"
+                 class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600" />
+          <div *ngIf="phone.invalid && phone.touched" class="text-red-500 text-sm mt-1">
+            <div *ngIf="phone.errors?.['required']">Le numéro de téléphone est obligatoire.</div>
+            <div *ngIf="phone.errors?.['pattern']">Le numéro de téléphone doit contenir uniquement des chiffres (8-15 chiffres).</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-700">
+            Email <span class="text-red-500">*</span>
+          </label>
+          <input type="email" name="email" [(ngModel)]="user.email" #email="ngModel" required email
+                 class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600" />
+          <div *ngIf="email.invalid && email.touched" class="text-red-500 text-sm mt-1">
+            <div *ngIf="email.errors?.['required']">L'email est obligatoire.</div>
+            <div *ngIf="email.errors?.['email']">L'email n'est pas valide.</div>
+          </div>
+        </div>
+
+        <!-- Mot de passe -->
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-700">
+            Mot de passe <span class="text-red-500">*</span>
+          </label>
+          <input type="password" name="password" [(ngModel)]="user.password" #password="ngModel" required minlength="8"
+                 class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600" />
+          <div *ngIf="password.invalid && password.touched" class="text-red-500 text-sm mt-1">
+            <div *ngIf="password.errors?.['required']">Le mot de passe est obligatoire.</div>
+            <div *ngIf="password.errors?.['minlength']">Le mot de passe doit contenir au moins 8 caractères.</div>
+          </div>
+        </div>
+
+        <!-- Confirmation -->
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-700">
+            Confirmer le mot de passe <span class="text-red-500">*</span>
+          </label>
+          <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordModel="ngModel" required minlength="8"
+                 class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600" />
+          
+          <div *ngIf="user.password !== confirmPassword && confirmPasswordModel.touched" class="text-red-500 text-sm mt-1">
+            Les mots de passe ne correspondent pas.
+          </div>
+        </div>
+
+        <!-- Bouton -->
+        <button type="submit" [disabled]="registerForm.invalid || isLoading"
+                class="w-full flex justify-center items-center gap-2 py-2.5 bg-yellow-600 hover:bg-yellow-500 text-black font-medium rounded-lg transition-all disabled:opacity-50">
+          <div *ngIf="isLoading" class="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
+          {{ isLoading ? 'Création en cours...' : 'Créer un compte' }}
+        </button>
+
+        <!-- Lien connexion -->
+        <p class="text-sm text-gray-500 mt-4 text-center">
+          Déjà membre ?
+          <a routerLink="/login" class="text-yellow-600 font-medium hover:underline">Se connecter</a>
+        </p>
+      </form>
+    </div>
+
+    <!-- Partie droite : Image -->
+    <div class="hidden md:block md:w-1/2 relative h-full">
+      
+      <img src="assets/images/image_register.jpg" alt="Développeurs"
+           class="w-full h-full object-cover rounded-r-2xl"
+           onerror="this.src='https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1920&q=80'">
+      <div class="absolute bottom-6 left-6 text-gray-900">
+        <h2 class="text-2xl font-bold">Codex Jenieur Entreprise</h2>
+        <p class="mt-2 text-sm opacity-90">Rejoignez une communauté de développeurs passionnés et innovants.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
