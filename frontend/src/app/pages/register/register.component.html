@@ -1,5 +1,5 @@
 <section class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-  <div class="relative bg-white flex flex-col md:flex-row rounded-2xl shadow-2xl max-w-4xl w-full h-auto md:h-[120vh] overflow-hidden border border-gray-200">
+  <div class="relative bg-white flex flex-col md:flex-row rounded-2xl shadow-2xl max-w-4xl w-full h-auto md:h-[90vh] overflow-hidden border border-gray-200">
 
     <!-- Partie gauche : Formulaire -->
     <div class="w-full md:w-1/2 px-6 md:px-16 py-8 flex flex-col justify-center">
@@ -24,43 +24,9 @@
       <!-- Formulaire -->
       <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="space-y-4">
 
-        <!-- Prénom -->
-        <div>
-          <label class="block mb-2 text-sm font-medium text-gray-700">
-            Prénom <span class="text-red-500">*</span>
-          </label>
-          <input type="text" name="firstName" [(ngModel)]="user.prenom" #firstName="ngModel" required
-                 class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600" />
-          <div *ngIf="firstName.invalid && firstName.touched" class="text-red-500 text-sm mt-1">
-            <div *ngIf="firstName.errors?.['required']">Le prénom est obligatoire.</div>
-          </div>
-        </div>
+      
 
-        <!-- Nom -->
-        <div>
-          <label class="block mb-2 text-sm font-medium text-gray-700">
-            Nom <span class="text-red-500">*</span>
-          </label>
-          <input type="text" name="lastName" [(ngModel)]="user.nom" #lastName="ngModel" required
-                 class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600" />
-          <div *ngIf="lastName.invalid && lastName.touched" class="text-red-500 text-sm mt-1">
-            <div *ngIf="lastName.errors?.['required']">Le nom est obligatoire.</div>
-          </div>
-        </div>
-
-        <!-- Numéro de téléphone -->
-        <div>
-          <label class="block mb-2 text-sm font-medium text-gray-700">
-            Numéro de téléphone <span class="text-red-500">*</span>
-          </label>
-          <input type="tel" name="phone" [(ngModel)]="user.telephone" #phone="ngModel" required pattern="[0-9]{8,15}" placeholder="Ex: 216xxxxxxxx"
-                 class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600" />
-          <div *ngIf="phone.invalid && phone.touched" class="text-red-500 text-sm mt-1">
-            <div *ngIf="phone.errors?.['required']">Le numéro de téléphone est obligatoire.</div>
-            <div *ngIf="phone.errors?.['pattern']">Le numéro de téléphone doit contenir uniquement des chiffres (8-15 chiffres).</div>
-          </div>
-        </div>
-
+        
         <!-- Email -->
         <div>
           <label class="block mb-2 text-sm font-medium text-gray-700">

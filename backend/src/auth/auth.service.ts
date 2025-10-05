@@ -26,7 +26,7 @@ export class AuthService {
   // 🟢 REGISTER SIMPLE
   // -------------------------------
   async register(signupData: SignupDto): Promise<User> {
-    const { email, password, nom, prenom, telephone } =
+    const { email, password,} =
       signupData;
 
     // Vérification doublons
@@ -40,11 +40,9 @@ export class AuthService {
 
     // Création de l'utilisateur
     const newUser = this.userRepository.create({
-      nom,
-      prenom,
-      email,
-      telephone,
       
+      email,
+     
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       password: hashedPassword,
      
@@ -64,7 +62,7 @@ export class AuthService {
     if (!isPasswordValid)
       throw new UnauthorizedException('Identifiants invalides.');
 
-    const payload = { sub: user.id, username: `${user.nom} ${user.prenom}` };
+    const payload = { sub: user.id, username: `${user.email} ` };
     const access_token = await this.jwtService.signAsync(payload, {
       expiresIn: '1h',
     });

@@ -13,10 +13,9 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class RegisterComponent {
   user = {
-    nom: '',
-    prenom: '',
+   
     email: '',
-    telephone: '',
+   
     password: '',
   };
 

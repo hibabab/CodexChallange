@@ -7,21 +7,12 @@ import {
 } from 'class-validator';
 
 export class SignupDto {
-  @IsString()
-  @IsNotEmpty()
-  nom: string;
-
-  @IsString()
-  @IsNotEmpty()
-  prenom: string;
+  
 
   @IsEmail()
   @IsNotEmpty()
   email: string;
-  @IsString()
-  @IsNotEmpty()
-  telephone: string;
-
+ 
 
   @IsString()
   @IsNotEmpty()
